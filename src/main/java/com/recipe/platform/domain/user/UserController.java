@@ -1,0 +1,37 @@
+package com.recipe.platform.domain.user;
+
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/users")
+@RequiredArgsConstructor
+
+public class UserController {
+    private final UserRepository userRepository;
+
+    @PostMapping("/test")
+    public User createTestUser() {
+        User user = User.builder()
+                .email("test@example.com")
+                .password("password123")
+                .nickname("테스터")
+                .build();
+
+        return userRepository.save(user);
+    }
+
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @GetMapping("/email/{email}")
+    public User getUserByEmail(@PathVariable String email) {
+        return userRepository.findByEmail(email)
+                .orElse(null);
+    }
+}
