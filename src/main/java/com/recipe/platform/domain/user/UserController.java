@@ -1,7 +1,10 @@
 package com.recipe.platform.domain.user;
 
-
+import com.recipe.platform.domain.user.dto.SignupRequest;
+import com.recipe.platform.domain.user.dto.UserResponse;
+import com.recipe.platform.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,8 +14,18 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class UserController {
-    private final UserRepository userRepository;
 
+    private final UserRepository userRepository;
+    private final UserService userService;
+
+    //바탕화면 회원가입 API
+    @PostMapping("/signup")
+    public ResponseEntity<UserResponse> signup(@RequestBody SignupRequest request) {
+        UserResponse response = userService.signup(request);
+        return ResponseEntity.ok(response);
+    }
+
+    // -----------테스트용---------------
     @PostMapping("/test")
     public User createTestUser() {
         User user = User.builder()
