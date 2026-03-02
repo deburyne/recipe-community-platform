@@ -29,3 +29,7 @@ logging:
 
 server:
   port: 8080
+
+jwt:
+  secret: your-secret-key-must-be-at-least-256-bits-long-for-hs256-algorithm-this-is-a-sample-key
+  access-token-validity: 86400000

@@ -1,5 +1,7 @@
 package com.recipe.platform.domain.user;
 
+import com.recipe.platform.domain.user.dto.LoginRequest;
+import com.recipe.platform.domain.user.dto.LoginResponse;
 import com.recipe.platform.domain.user.dto.SignupRequest;
 import com.recipe.platform.domain.user.dto.UserResponse;
 import com.recipe.platform.domain.user.service.UserService;
@@ -25,7 +27,14 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    // -----------테스트용---------------
+    // 로그인 API
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+        LoginResponse response = userService.login(request);
+        return ResponseEntity.ok(response);
+    }
+
+    // ------테스트용API--------
     @PostMapping("/test")
     public User createTestUser() {
         User user = User.builder()
