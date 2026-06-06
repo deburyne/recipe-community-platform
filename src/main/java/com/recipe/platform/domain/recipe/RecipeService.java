@@ -81,4 +81,20 @@ public class RecipeService {
 
         recipeRepository.delete(recipe);
     }
+
+    // 재료 기반 레시피 추천
+    public List<RecipeResponse> recommendByIngredients(List<String> ingredients) {
+        String ingredient1 = ingredients.size() > 0 ? ingredients.get(0) : null;
+        String ingredient2 = ingredients.size() > 1 ? ingredients.get(1) : null;
+        String ingredient3 = ingredients.size() > 2 ? ingredients.get(2) : null;
+
+        System.out.println("ingredient1: " + ingredient1);
+        System.out.println("ingredient2: " + ingredient2);
+        System.out.println("ingredient3: " + ingredient3);
+
+        return recipeRepository.findByIngredients(ingredient1, ingredient2, ingredient3)
+                .stream()
+                .map(RecipeResponse::new)
+                .collect(Collectors.toList());
+    }
 }

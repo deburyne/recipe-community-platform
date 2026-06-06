@@ -55,4 +55,11 @@ public class RecipeController {
         recipeService.deleteRecipe(userId, id);
         return ResponseEntity.noContent().build();
     }
+
+    // 재료 기반 레시피 추천
+    @GetMapping("/recommend")
+    public ResponseEntity<List<RecipeResponse>> recommendByIngredients(
+            @RequestParam List<String> ingredients) {
+        return ResponseEntity.ok(recipeService.recommendByIngredients(ingredients));
+    }
 }
